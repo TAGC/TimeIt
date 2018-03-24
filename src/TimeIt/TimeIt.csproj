@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Provides utilities for wrapping regions of code and performing actions based on the time it takes for them to run.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>TimeIt</AssemblyName>
+    <PackageId>TimeIt</PackageId>
+    <Authors>ThymineC</Authors>
+    <Copyright>MIT</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/TAGC/TimeIt</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-setversion" Version="1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="microsoft.extensions.logging.abstractions" Version="2.0.1" />
+  </ItemGroup>
+</Project>
