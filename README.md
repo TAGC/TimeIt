@@ -31,7 +31,7 @@ public class Foo
 
     public void Bar()
     {
-        using (TimeIt.Then.Log(_logger, "Code took {Elapsed} time").And.ThrowIfLongerThan(500)))
+        using (TimeIt.Then.Log(_logger, "Code took {Elapsed} time").And.ThrowIfLongerThan(500))
         {
             // Profiled code goes here.    
         }
