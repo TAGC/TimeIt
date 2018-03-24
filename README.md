@@ -1,7 +1,7 @@
 ## TimeIt
 
 [![NuGet](https://img.shields.io/nuget/v/TimeIt.svg)](https://www.nuget.org/packages/TimeIt)
-[![Build status](https://TODO.svg)](https://ci.appveyor.com/project/TAGC/timeit)
+[![Build status](https://ci.appveyor.com/api/projects/status/9a057rcq6n00p38t?svg=true)](https://ci.appveyor.com/project/TAGC/timeit)
 
 TimeIt is a tool that can be used to measure the time it takes for regions of code to execute and perform various actions based on that, such as throwing exceptions if the elapsed time exceeds some specified timeout.
 
