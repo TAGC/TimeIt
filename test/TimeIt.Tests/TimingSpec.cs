@@ -8,7 +8,6 @@ namespace TimeItCore.Tests
     public class TimingSpec
     {
         [Theory]
-        [InlineData(50)]
         [InlineData(100)]
         [InlineData(250)]
         [InlineData(500)]
