@@ -17,13 +17,21 @@ using (TimeIt.Then.Do(elapsed => { /* something */ }).And.Do(elapsed => { /* som
 Importing the `TimeItCore` namespace also allows you to use a core set of extension methods for configuring common actions:
 
 ```cs
+using Microsoft.Extensions.Logging;
 using TimeItCore;
 
 public class Foo
 {
+    private readonly ILogger _logger;
+
+    public Foo(ILogger<Foo> logger)
+    {
+        _logger = logger;
+    }
+
     public void Bar()
     {
-        using (TimeIt.Then.ThrowIfLongerThan(TimeSpan.FromSeconds(3))))
+        using (TimeIt.Then.Log(_logger, "Code took {Elapsed} time").And.ThrowIfLongerThan(500)))
         {
             // Profiled code goes here.    
         }
