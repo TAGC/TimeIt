@@ -4,6 +4,7 @@ using TimeItCore;
 using TimeItCore.Timing;
 using Xunit;
 using Shouldly;
+using static TimeItCore.Tests.TestUtility;
 
 namespace TimeItCore.Tests
 {
@@ -33,14 +34,6 @@ namespace TimeItCore.Tests
             {
                 Should.NotThrow(() => timeit.Then.ThrowIfLongerThan(timeout).Dispose());
             }
-        }
-
-        private static IRestartableTimer ConfigureMockTimer(int elapsed)
-        {
-            var timer = new Mock<IRestartableTimer>();
-            timer.SetupGet(it => it.Elapsed).Returns(TimeSpan.FromMilliseconds(elapsed));
-
-            return timer.Object;
         }
     }
 }
