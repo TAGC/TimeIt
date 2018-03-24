@@ -5,7 +5,7 @@
 
 TimeIt is a tool that can be used to measure the time it takes for regions of code to execute and perform various actions based on that, such as throwing exceptions if the elapsed time exceeds some specified timeout.
 
-The idea is that you wrap up the code region you want to profile in a `using` block and configure the sequence of actions to perform based on the time it takes for the region to execute after it's finished running:
+The idea is that you wrap up the code region you want to profile in a `using` block and configure the sequence of actions to perform after the block has finished running:
 
 ```cs
 using (TimeIt.Then.Do(elapsed => { /* something */ }).And.Do(elapsed => { /* something else */ }))
