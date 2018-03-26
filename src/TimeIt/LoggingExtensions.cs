@@ -13,8 +13,8 @@ namespace TimeItCore
         private const string DefaultLogTemplate = "Code region executed in {Elapsed}";
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at
-        /// <see cref="LogLevel.Trace" /> using the default log template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// <see cref="LogLevel.Trace" /> level using the default log template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -28,8 +28,8 @@ namespace TimeItCore
             setup.Log(logger, LogLevel.Trace, DefaultLogTemplate);
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at the specified
-        /// log level using the default log template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// the specified log level using the default log template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -44,8 +44,8 @@ namespace TimeItCore
             setup.Log(logger, logLevel, DefaultLogTemplate);
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at
-        /// <see cref="LogLevel.Trace" /> using a custom template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// <see cref="LogLevel.Trace" /> level using a custom template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -62,8 +62,8 @@ namespace TimeItCore
             setup.Log(logger, LogLevel.Trace, template);
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at the specified
-        /// log level using a custom template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// the specified log level using a custom template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
