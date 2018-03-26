@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Librarian.DataAccess;
 using Librarian.Sorting;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ namespace Librarian
             }
         }
 
-        public static void Main()
+        public static async Task Main()
         {
             var bookRepository = new GutenbergBookRepository("Resources/GUTINDEX.2018");
             var logger = new LoggerFactory().AddConsole(LogLevel.Trace).CreateLogger(typeof(Program));
@@ -34,6 +35,9 @@ namespace Librarian
                 {
                     library.SortBooks();
                 }
+
+                // Prevents console output being displayed out of order.
+                await Task.Delay(10);
 
                 if (QueryToPrintBooks())
                 {

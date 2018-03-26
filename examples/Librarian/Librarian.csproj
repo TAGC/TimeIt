@@ -12,4 +12,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\TimeIt\TimeIt.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Resources\GUTINDEX.2018">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

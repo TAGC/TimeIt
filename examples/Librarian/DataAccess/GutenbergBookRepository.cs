@@ -21,6 +21,7 @@ namespace Librarian.DataAccess
 
         public IEnumerable<Book> GetBooks()
         {
+            // File must use LF line endings.
             var text = File.ReadAllText(_filePath);
 
             foreach (var chunk in text.Split("\n\n"))
