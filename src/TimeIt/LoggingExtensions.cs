@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 
 namespace TimeItCore
@@ -6,13 +7,14 @@ namespace TimeItCore
     /// <summary>
     /// Extends <see cref="Setup" /> with logging-related configuration options.
     /// </summary>
+    [PublicAPI]
     public static class LoggingExtensions
     {
         private const string DefaultLogTemplate = "Code region executed in {Elapsed}";
 
         /// <summary>
         /// Configures a log to be generated based on the elapsed execution time of the code region at
-        /// <see cref="LogLevel.Trace" /> using the default log template. 
+        /// <see cref="LogLevel.Trace" /> using the default log template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -27,7 +29,7 @@ namespace TimeItCore
 
         /// <summary>
         /// Configures a log to be generated based on the elapsed execution time of the code region at the specified
-        /// log level using the default log template. 
+        /// log level using the default log template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -43,7 +45,7 @@ namespace TimeItCore
 
         /// <summary>
         /// Configures a log to be generated based on the elapsed execution time of the code region at
-        /// <see cref="LogLevel.Trace" /> using a custom template. 
+        /// <see cref="LogLevel.Trace" /> using a custom template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>

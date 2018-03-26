@@ -1,10 +1,12 @@
 using System;
+using JetBrains.Annotations;
 
 namespace TimeItCore
 {
     /// <summary>
     /// Extends <see cref="Setup" /> with useful and commonly used configuration options.
     /// </summary>
+    [PublicAPI]
     public static class CoreExtensions
     {
         /// <summary>
@@ -21,7 +23,7 @@ namespace TimeItCore
         /// <param name="timeout">The maximum permitted time for the code region to execute, in milliseconds.</param>
         /// <returns>The <c>Setup</c> instance via a chainable interface.</returns>
         /// <exception cref="TimeoutException">
-        /// The code region takes longer to execute than <paramref name="timeout"/>
+        /// The code region takes longer to execute than <paramref name="timeout" />
         /// </exception>
         public static IChainableDisposable<Setup> ThrowIfLongerThan(this Setup setup, int timeout) =>
             setup.ThrowIfLongerThan(TimeSpan.FromMilliseconds(timeout));
@@ -33,7 +35,7 @@ namespace TimeItCore
         /// <param name="timeout">The maximum permitted time for the code region to execute.</param>
         /// <returns>The <c>Setup</c> instance via a chainable interface.</returns>
         /// <exception cref="TimeoutException">
-        /// The code region takes longer to execute than <paramref name="timeout"/>
+        /// The code region takes longer to execute than <paramref name="timeout" />
         /// </exception>
         public static IChainableDisposable<Setup> ThrowIfLongerThan(this Setup setup, TimeSpan timeout)
         {

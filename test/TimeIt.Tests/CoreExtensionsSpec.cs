@@ -1,9 +1,8 @@
 using System;
 using Moq;
-using TimeItCore;
+using Shouldly;
 using TimeItCore.Timing;
 using Xunit;
-using Shouldly;
 using static TimeItCore.Tests.TestUtility;
 
 namespace TimeItCore.Tests
@@ -25,7 +24,7 @@ namespace TimeItCore.Tests
         {
             var timer = ConfigureMockTimer(elapsed);
             var timeit = new MockTimeIt(timer);
-            
+
             if (shouldThrow)
             {
                 Should.Throw<TimeoutException>(() => timeit.Then.ThrowIfLongerThan(timeout).Dispose());

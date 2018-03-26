@@ -1,17 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Librarian.DataAccess
 {
     public class GutenbergBookRepository : IBookRepository
     {
-        private static readonly Regex EtExtRegex = new Regex(@"\s{2,}\d{5}");
         private static readonly Regex BookRegex = new Regex(
             @"(?<Title>.*), by (?<Author>(\s?[\w.])*)",
             RegexOptions.Singleline);
+
+        private static readonly Regex EtExtRegex = new Regex(@"\s{2,}\d{5}");
 
         private readonly string _filePath;
 
@@ -28,6 +27,7 @@ namespace Librarian.DataAccess
             {
                 if (TryParseBook(chunk, out var book))
                 {
+                    // ReSharper disable once PossibleInvalidOperationException
                     yield return book.Value;
                 }
             }

@@ -6,6 +6,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>TimeIt</AssemblyName>
     <PackageId>TimeIt</PackageId>
+    <RootNamespace>TimeItCore</RootNamespace>
     <Authors>ThymineC</Authors>
     <Copyright>MIT</Copyright>
     <RepositoryType>git</RepositoryType>

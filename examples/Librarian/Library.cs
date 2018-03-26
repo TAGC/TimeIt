@@ -22,17 +22,6 @@ namespace Librarian
             _sortedBooks = false;
         }
 
-        public IEnumerable<Book> Books => _books;
-
-        public void SortBooks()
-        {
-            var sorted = _bookSortingStrategy.Sort(_books, AuthorThenName).ToList();
-            
-            _books.Clear();
-            _books.AddRange(sorted);
-            _sortedBooks = true;
-        }
-
         public void PrintBooks()
         {
             if (!_sortedBooks)
@@ -46,7 +35,7 @@ namespace Librarian
 
                 Console.WriteLine(author);
                 Console.WriteLine("--------------------\n");
-                
+
                 foreach (var book in collection)
                 {
                     Console.WriteLine("\t" + book.Title);
@@ -56,12 +45,21 @@ namespace Librarian
             }
         }
 
+        public void SortBooks()
+        {
+            var sorted = _bookSortingStrategy.Sort(_books, AuthorThenName).ToList();
+
+            _books.Clear();
+            _books.AddRange(sorted);
+            _sortedBooks = true;
+        }
+
         private class BookComparer : IComparer<Book>
         {
             public int Compare(Book x, Book y)
             {
-                var authorComparison = x.Author.CompareTo(y.Author);
-                var nameComparison = x.Title.CompareTo(y.Title);
+                var authorComparison = string.Compare(x.Author, y.Author, StringComparison.Ordinal);
+                var nameComparison = string.Compare(x.Title, y.Title, StringComparison.Ordinal);
 
                 return authorComparison != 0 ? authorComparison : nameComparison;
             }

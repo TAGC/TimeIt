@@ -7,7 +7,7 @@ using TimeItCore;
 
 namespace Librarian
 {
-    public class Program
+    public static class Program
     {
         private static IEnumerable<ISortStrategy> SortingStrategies
         {
@@ -22,7 +22,7 @@ namespace Librarian
         public static void Main()
         {
             var bookRepository = new GutenbergBookRepository("Resources/GUTINDEX.2018");
-            var logger = new LoggerFactory().AddConsole(LogLevel.Trace).CreateLogger<Program>();
+            var logger = new LoggerFactory().AddConsole(LogLevel.Trace).CreateLogger(typeof(Program));
 
             foreach (var sortingStrategy in SortingStrategies)
             {
@@ -51,7 +51,7 @@ namespace Librarian
 
             while (true)
             {
-                switch (Console.ReadLine().ToLowerInvariant())
+                switch (Console.ReadLine()?.ToLowerInvariant())
                 {
                     case "y": return true;
                     case "n": return false;

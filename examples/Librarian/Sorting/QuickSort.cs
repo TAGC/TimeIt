@@ -10,12 +10,14 @@ namespace Librarian.Sorting
 
         public IEnumerable<T> Sort<T>(IEnumerable<T> values, IComparer<T> comparer)
         {
-            if (values.Count() <= 1)
+            var valuesArray = values as T[] ?? values.ToArray();
+
+            if (valuesArray.Length <= 1)
             {
-                return values;
+                return valuesArray;
             }
 
-            var (left, pivot, right) = Partition(values, comparer);
+            var (left, pivot, right) = Partition(valuesArray, comparer);
             var sortedLeft = Sort(left, comparer);
             var sortedRight = Sort(right, comparer);
 
@@ -23,7 +25,7 @@ namespace Librarian.Sorting
         }
 
         private static (IEnumerable<T> left, T pivot, IEnumerable<T> right) Partition<T>(
-            IEnumerable<T> values,
+            T[] values,
             IComparer<T> comparer)
         {
             var pivot = values.First();
