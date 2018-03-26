@@ -1,12 +1,8 @@
-using System;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using Xunit;
-using TimeItCore;
-using Moq;
-using static TimeItCore.Tests.TestUtility;
-using Shouldly;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
+using Shouldly;
+using Xunit;
+using static TimeItCore.Tests.TestUtility;
 
 namespace TimeItCore.Tests
 {
@@ -19,6 +15,7 @@ namespace TimeItCore.Tests
             _logger = new MockLogger();
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         public static IEnumerable<object[]> LogExamples
         {
             get
@@ -59,7 +56,6 @@ namespace TimeItCore.Tests
         {
             var timer = ConfigureMockTimer(elapsedTime);
             var timeit = new MockTimeIt(timer);
-            var elapsedTimeSpan = TimeSpan.FromMilliseconds(elapsedTime);
 
             string log = null;
             _logger.GeneratedLog += (s, e) => log = e.Log;

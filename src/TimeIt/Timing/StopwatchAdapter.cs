@@ -4,14 +4,14 @@ using System.Diagnostics;
 namespace TimeItCore.Timing
 {
     /// <summary>
-    /// Adapts instances of <see cref="Stopwatch" /> to <see cref="IRestartableTimer" />. 
+    /// Adapts instances of <see cref="Stopwatch" /> to <see cref="IRestartableTimer" />.
     /// </summary>
     internal sealed class StopwatchAdapter : IRestartableTimer
     {
         private readonly Stopwatch _stopwatch;
 
         /// <summary>
-        /// Creates a new instanes of <see cref="StopwatchAdapter" />.
+        /// Creates a new instance of <see cref="StopwatchAdapter" />.
         /// </summary>
         public StopwatchAdapter()
         {

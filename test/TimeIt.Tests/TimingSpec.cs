@@ -21,7 +21,7 @@ namespace TimeItCore.Tests
                 await Task.Delay(executionTimeSpan);
             }
 
-            measuredTime.ShouldBe(executionTimeSpan, tolerance: TimeSpan.FromMilliseconds(executionTime / 5));
+            measuredTime.ShouldBe(executionTimeSpan, TimeSpan.FromMilliseconds(executionTime / 5.0));
         }
     }
 }

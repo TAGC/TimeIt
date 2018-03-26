@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,21 +10,23 @@ namespace Librarian.Sorting
         public IEnumerable<T> Sort<T>(IEnumerable<T> values, IComparer<T> comparer)
         {
             var valueArray = values.ToArray();
-            var swappedWithinPass = false;
+            bool swappedWithinPass;
 
             do
             {
                 swappedWithinPass = false;
-                
-                for (int i=0; i < valueArray.Length - 1; i++)
+
+                for (var i = 0; i < valueArray.Length - 1; i++)
                 {
-                    if (comparer.Compare(valueArray[i], valueArray[i + 1]) > 0)
+                    if (comparer.Compare(valueArray[i], valueArray[i + 1]) <= 0)
                     {
-                        var temp = valueArray[i];
-                        valueArray[i] = valueArray[i + 1];
-                        valueArray[i + 1] = temp;
-                        swappedWithinPass = true;
+                        continue;
                     }
+
+                    var temp = valueArray[i];
+                    valueArray[i] = valueArray[i + 1];
+                    valueArray[i + 1] = temp;
+                    swappedWithinPass = true;
                 }
             }
             while (swappedWithinPass);

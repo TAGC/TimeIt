@@ -1,5 +1,3 @@
-using System;
-using TimeItCore;
 using TimeItCore.Timing;
 
 namespace TimeItCore.Tests
@@ -12,7 +10,7 @@ namespace TimeItCore.Tests
         {
             _timer = timer;
         }
-        
+
         public Setup Then => new Setup(_timer);
     }
 }

@@ -10,21 +10,22 @@ namespace Librarian.Sorting
 
         public IEnumerable<T> Sort<T>(IEnumerable<T> values, IComparer<T> comparer)
         {
-            var length = values.Count();
+            var valuesArray = values as T[] ?? values.ToArray();
+            var length = valuesArray.Length;
 
             if (length <= 1)
             {
-                return values;
+                return valuesArray;
             }
 
             var midpoint = length / 2;
-            var left = Sort(values.Take(midpoint), comparer);
-            var right = Sort(values.TakeLast(length - midpoint), comparer);
+            var left = Sort(valuesArray.Take(midpoint), comparer);
+            var right = Sort(valuesArray.TakeLast(length - midpoint), comparer);
 
             return Merge(left, right, comparer);
         }
 
-        private IEnumerable<T> Merge<T>(IEnumerable<T> left, IEnumerable<T> right, IComparer<T> comparer)
+        private static IEnumerable<T> Merge<T>(IEnumerable<T> left, IEnumerable<T> right, IComparer<T> comparer)
         {
             var leftQueue = new Queue<T>(left);
             var rightQueue = new Queue<T>(right);

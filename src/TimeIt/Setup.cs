@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TimeItCore.Timing;
 
 namespace TimeItCore
@@ -8,19 +9,11 @@ namespace TimeItCore
     /// An object that measures the time it takes for a region of code to execute and performs a configurable sequence
     /// of actions from that.
     /// </summary>
+    [PublicAPI]
     public class Setup : IChainableDisposable<Setup>
     {
         private readonly List<ProcessElapsedTime> _callbacks;
         private readonly IRestartableTimer _timer;
-
-        /// <summary>
-        /// Represents an action that performs some logic based on the time it took for a region of code to execute.
-        /// </summary>
-        /// <param name="elapsedTime">The elapsed execution time of the code region.</param>
-        public delegate void ProcessElapsedTime(TimeSpan elapsedTime);
-
-        /// <inheritdoc />
-        public Setup And => this;
 
         /// <summary>
         /// Creates a new instance of the <see cref="Setup" /> class.
@@ -31,7 +24,23 @@ namespace TimeItCore
             _timer = timer;
             _callbacks = new List<ProcessElapsedTime>();
         }
-        
+
+        /// <summary>
+        /// Represents an action that performs some logic based on the time it took for a region of code to execute.
+        /// </summary>
+        /// <param name="elapsedTime">The elapsed execution time of the code region.</param>
+        public delegate void ProcessElapsedTime(TimeSpan elapsedTime);
+
+        /// <inheritdoc />
+        public Setup And => this;
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            _timer.Stop();
+            _callbacks.ForEach(process => process(_timer.Elapsed));
+        }
+
         /// <summary>
         /// Configures an action to perform based on the time it takes for the code region to execute.
         /// </summary>
@@ -49,19 +58,17 @@ namespace TimeItCore
         /// setup.Do(elapsed => { /* some action */ });
         /// </code>
         /// </example>
-        public IChainableDisposable<Setup> Do(ProcessElapsedTime callback)
+        public IChainableDisposable<Setup> Do([NotNull] ProcessElapsedTime callback)
         {
+            if (callback is null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
+
             _callbacks.Add(callback);
             _timer.Restart();
 
             return this;
-        }
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            _timer.Stop();
-            _callbacks.ForEach(process => process(_timer.Elapsed));
         }
     }
 }

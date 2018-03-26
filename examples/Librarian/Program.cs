@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Librarian.DataAccess;
 using Librarian.Sorting;
 using Microsoft.Extensions.Logging;
@@ -7,7 +8,7 @@ using TimeItCore;
 
 namespace Librarian
 {
-    public class Program
+    public static class Program
     {
         private static IEnumerable<ISortStrategy> SortingStrategies
         {
@@ -19,10 +20,10 @@ namespace Librarian
             }
         }
 
-        public static void Main()
+        public static async Task Main()
         {
             var bookRepository = new GutenbergBookRepository("Resources/GUTINDEX.2018");
-            var logger = new LoggerFactory().AddConsole(LogLevel.Trace).CreateLogger<Program>();
+            var logger = new LoggerFactory().AddConsole(LogLevel.Trace).CreateLogger(typeof(Program));
 
             foreach (var sortingStrategy in SortingStrategies)
             {
@@ -34,6 +35,9 @@ namespace Librarian
                 {
                     library.SortBooks();
                 }
+
+                // Prevents console output being displayed out of order.
+                await Task.Delay(10);
 
                 if (QueryToPrintBooks())
                 {
@@ -51,7 +55,7 @@ namespace Librarian
 
             while (true)
             {
-                switch (Console.ReadLine().ToLowerInvariant())
+                switch (Console.ReadLine()?.ToLowerInvariant())
                 {
                     case "y": return true;
                     case "n": return false;
