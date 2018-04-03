@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 
@@ -13,8 +14,8 @@ namespace TimeItCore
         private const string DefaultLogTemplate = "Code region executed in {Elapsed}";
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at
-        /// <see cref="LogLevel.Trace" /> using the default log template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// <see cref="LogLevel.Trace" /> level using the default log template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -28,8 +29,8 @@ namespace TimeItCore
             setup.Log(logger, LogLevel.Trace, DefaultLogTemplate);
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at the specified
-        /// log level using the default log template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// the specified log level using the default log template.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
@@ -44,44 +45,57 @@ namespace TimeItCore
             setup.Log(logger, logLevel, DefaultLogTemplate);
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at
-        /// <see cref="LogLevel.Trace" /> using a custom template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// <see cref="LogLevel.Trace" /> level using a custom template.
+        /// <para></para>
+        /// The log template should contain exactly one placeholder if no custom logger arguments are provided, which the elapsed
+        /// time will replace. If custom arguments are provided, there should be exactly one more placeholder in the log template
+        /// than the number of custom arguments, and the placeholder for the elapsed time should appear last.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
-        /// <param name="template">
-        /// The log template. This should contain exactly one placeholder, which the elapsed time will replace.
-        /// </param>
-        /// <returns>The <c>Setup</c> instance via a chainable interface.</returns>
+        /// <param name="template">The log template.</param>
+        /// <param name="args">Additional logger arguments.</param>
+        /// <returns>
+        /// The <c>Setup</c> instance via a chainable interface.
+        /// </returns>
         /// <example>
         /// <code>
-        /// setup.Log(logger, "Code region executed in {Elapsed}");
+        /// setup.Log(logger, "Connected to {Server} in {Elapsed}", serverUri);
         /// </code>
         /// </example>
-        public static IChainableDisposable<Setup> Log(this Setup setup, ILogger logger, string template) =>
-            setup.Log(logger, LogLevel.Trace, template);
+        public static IChainableDisposable<Setup> Log(
+            this Setup setup,
+            ILogger logger,
+            string template,
+            params object[] args) =>
+            setup.Log(logger, LogLevel.Trace, template, args);
 
         /// <summary>
-        /// Configures a log to be generated based on the elapsed execution time of the code region at the specified
-        /// log level using a custom template.
+        /// Configures a log to be generated based on the elapsed execution time of the code region. The log is generated at
+        /// the specified log level using a custom template.
+        /// <para></para>
+        /// The log template should contain exactly one placeholder if no custom logger arguments are provided, which the elapsed
+        /// time will replace. If custom arguments are provided, there should be exactly one more placeholder in the log template
+        /// than the number of custom arguments, and the placeholder for the elapsed time should appear last.
         /// </summary>
         /// <param name="setup">The <c>Setup</c> instance.</param>
         /// <param name="logger">The logger to log with.</param>
         /// <param name="logLevel">The level to log at.</param>
-        /// <param name="template">
-        /// The log template. This should contain exactly one placeholder, which the elapsed time will replace.
-        /// </param>
+        /// <param name="template">The log template.</param>
+        /// <param name="args">Additional logger arguments.</param>
         /// <returns>The <c>Setup</c> instance via a chainable interface.</returns>
         /// <example>
         /// <code>
-        /// setup.Log(logger, LogLevel.Debug, "Code region executed in {Elapsed}");
+        /// setup.Log(logger, LogLevel.Debug, "Connected to {Server} in {Elapsed}", serverUri);
         /// </code>
         /// </example>
         public static IChainableDisposable<Setup> Log(
             this Setup setup,
             ILogger logger,
             LogLevel logLevel,
-            string template)
+            string template,
+            params object[] args)
         {
             if (logLevel == LogLevel.None)
             {
@@ -102,7 +116,7 @@ namespace TimeItCore
                 }
             }
 
-            return setup.Do(elapsed => Log()(template, new object[] { elapsed }));
+            return setup.Do(elapsed => Log()(template, args.Append(elapsed).ToArray()));
         }
     }
 }
