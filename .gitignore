@@ -437,3 +437,6 @@ __pycache__/
 
 
 # End of https://www.gitignore.io/api/csharp,visualstudio,visualstudiocode
+
+# User-added
+.github_changelog_generator
