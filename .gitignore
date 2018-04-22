@@ -440,3 +440,4 @@ __pycache__/
 
 # User-added
 .github_changelog_generator
+BenchmarkDotNet.Artifacts
